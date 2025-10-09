@@ -1,0 +1,182 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Personalized Fitness & Nutrition Coach</title>
+  <link rel="stylesheet" href="styles.css" />
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+  <header class="container">
+    <h1>Personalized Fitness & Nutrition Coach</h1>
+    <p class="subtitle">Create custom workout plans and meal suggestions based on your goals, dietary needs, and activity level.</p>
+  </header>
+
+  <main class="container grid">
+    <section class="card" id="profile-card">
+      <h2>1) Your Profile</h2>
+      <form id="profile-form">
+        <div class="row">
+          <label for="sex-select">Biological Sex</label>
+          <select id="sex-select" name="sex" required title="Select your biological sex">
+            <option value="female">Female</option>
+            <option value="male">Male</option>
+          </select>
+        </div>
+                  <div class="unit-toggle">
+            <label for="age-input">Age</label>
+            <input type="number" id="age-input" name="age" min="13" max="100" value="25" required title="Enter your age in years" />
+        <div class="row two">
+          <div>
+            <label for="height-input">Height (cm)</label>
+            <input type="number" id="height-input" name="height" min="120" max="230" value="170" required title="Enter your height in centimeters" />
+          </div>
+          <div>
+            <label for="weight-input">Weight (kg)</label>
+            <input type="number" id="weight-input" name="weight" min="35" max="200" value="68" required title="Enter your weight in kilograms" />
+          </div>
+        </div>
+        <div class="row">
+          <label for="activity-select">Activity Level</label>
+          <select id="activity-select" name="activity" required title="Select your activity level">
+            <option value="sedentary">Sedentary (little or no exercise)</option>
+            <option value="light">Light (1-3 days/week)</option>
+            <option value="moderate">Moderate (3-5 days/week)</option>
+            <option value="active">Active (6-7 days/week)</option>
+            <option value="athlete">Athlete (2x per day)</option>
+          </select>
+        </div>
+        <div class="row">
+          <label for="goal-select">Goal</label>
+          <select id="goal-select" name="goal" required title="Select your fitness goal">
+            <option value="lose">Lose Fat</option>
+            <option value="recomp">Body Recomp / Maintain</option>
+            <option value="gain">Gain Muscle</option>
+          </select>
+        </div>
+        <div class="row">
+          <label>Dietary Restrictions</label>
+          <div class="chips">
+            <label><input type="checkbox" name="restrictions" value="vegetarian">Vegetarian</label>
+            <label><input type="checkbox" name="restrictions" value="vegan">Vegan</label>
+            <label><input type="checkbox" name="restrictions" value="gluten_free">Gluten‑free</label>
+            <label><input type="checkbox" name="restrictions" value="dairy_free">Dairy‑free</label>
+            <label><input type="checkbox" name="restrictions" value="nut_free">Nut‑free</label>
+            <label><input type="checkbox" name="restrictions" value="diabetic">Diabetes</label>
+            <label><input type="checkbox" name="restrictions" value="halal">Halal</label>
+            <label><input type="checkbox" name="restrictions" value="kosher">Kosher</label>
+          </div>
+        </div>
+        <div class="row">
+          <label for="experience-select">Experience & Equipment</label>
+          <div class="two">
+            <select id="experience-select" name="experience" required title="Select your fitness experience level">
+              <option value="beginner">Beginner</option>
+              <option value="intermediate">Intermediate</option>
+              <option value="advanced">Advanced</option>
+            </select>
+            <select id="equipment-select" name="equipment" required title="Select available equipment">
+              <option value="none">No Equipment</option>
+              <option value="dumbbells">Dumbbells/Bench</option>
+              <option value="gym">Full Gym</option>
+            </select>
+          </div>
+        </div>
+        <div class="row">
+            <label>Days per Week</label>
+            <input type="number" id="days-input" name="days" value="4" min="1" step="1" placeholder="1-7" />
+          </div>
+        <div class="row">
+          <label for="target-calories-input">Target calories (kcal/day) — optional</label>
+          <input type="number" id="target-calories-input" name="target_calories" min="800" max="4000" placeholder="Leave blank to use calculated TDEE" title="Enter a custom daily calorie target (optional)" />
+        </div>
+        <div class="row">
+          <label class="small" for="calorie-cycling-checkbox"><input type="checkbox" id="calorie-cycling-checkbox" name="calorie_cycling" title="Enable calorie cycling for varied daily intake" /> Enable Calorie Cycling (±10%)</label>
+        </div>
+        <div class="row">
+          <button class="primary" type="submit">Generate Plan</button>
+          <button class="secondary" type="button" id="load-sample">Load Sample</button>
+          <button class="ghost" type="button" id="reset">Reset</button>
+        </div>
+      </form>
+    </section>
+
+    <section class="card" id="nutrition-card">
+      <h2>2) Nutrition Plan</h2>
+      <div id="nutrition-summary" class="summary"></div>
+      <div id="meal-plan"></div>
+      <div class="row">
+        <button class="secondary" id="export-meals">Export Meals (CSV)</button>
+      </div>
+    </section>
+
+    <section class="card" id="workout-card">
+      <h2>3) Workout Plan</h2>
+      <div id="workout-summary" class="summary"></div>
+      <div id="workout-plan"></div>
+      <div class="row">
+        <button class="secondary" id="export-workouts">Export Workouts (CSV)</button>
+      </div>
+    </section>
+
+    <section class="card" id="grocery-card">
+      <h2>4) Grocery List</h2>
+      <p class="small">Auto-compiled from your 7-day meal plan. Edit ingredients in <code>data/meals-db.js</code>.</p>
+      <div id="grocery-list"></div>
+      <div class="row">
+        <button class="secondary" id="export-grocery">Export Grocery List (CSV)</button>
+        <button class="ghost" type="button" id="print-plans">Print / Save as PDF</button>
+      </div>
+    </section>
+  </main>
+
+  <!-- Recipe Modal -->
+  <div id="recipe-modal" class="modal" style="display: none;">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h2 id="recipe-title">Recipe Title</h2>
+        <span class="close" onclick="closeRecipeModal()">&times;</span>
+      </div>
+      <div class="modal-body">
+        <div class="recipe-image-container">
+          <img id="recipe-image" src="" alt="Recipe Image">
+        </div>
+        <div class="recipe-info">
+          <div class="nutrition-info">
+            <span id="recipe-calories"></span>
+            <span id="recipe-protein"></span>
+            <span id="recipe-carbs"></span>
+            <span id="recipe-fat"></span>
+          </div>
+          <div class="recipe-tags" id="recipe-tags"></div>
+        </div>
+        <div class="recipe-content">
+          <div class="ingredients-section">
+            <h3>🥘 Ingredients</h3>
+            <ul id="recipe-ingredients"></ul>
+          </div>
+          <div class="instructions-section">
+            <h3>👩‍🍳 Instructions</h3>
+            <ol id="recipe-instructions"></ol>
+          </div>
+          <div class="tips-section" id="tips-section" style="display: none;">
+            <h3>💡 Tips</h3>
+            <p id="recipe-tips"></p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <footer class="container">
+    <p>💡 Tip: Your plan is saved locally so you can tweak inputs and re‑generate anytime. Click on any meal to see the full recipe!</p>
+  </footer>
+
+  <script src="data/meals-db.js"></script>
+  <script src="data/workouts-db.js"></script>
+  <script src="app.js"></script>
+</body>
+</html>
