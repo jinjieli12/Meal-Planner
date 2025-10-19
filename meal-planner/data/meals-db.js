@@ -1,7 +1,7 @@
 // Simple meal database with tags for restrictions
 // Each item: { name, type, calories, protein, carbs, fat, tags, ingredients: [{name, qty, unit}], instructions, tips, image }
 const MEALS_DB = [
-  {name:"Greek Yogurt Parfait", type:"breakfast", calories:380, protein:28, carbs:45, fat:9, tags:["vegetarian"],
+  {name:"Greek Yogurt Parfait", type:"breakfast", calories:380, protein:28, carbs:45, fat:9, tags:["vegetarian","gluten_free"],
     ingredients:[
       {name:"Greek yogurt", qty:1, unit:"cup"},
       {name:"Granola", qty:0.5, unit:"cup"},
@@ -18,7 +18,7 @@ const MEALS_DB = [
     image: "data/images/greek_yogurt_parfait.jpg"
   },
 
-  {name:"Oats + Berries + PB", type:"breakfast", calories:420, protein:17, carbs:58, fat:14, tags:["vegetarian","dairy_free","vegan"],
+  {name:"Oats + Berries + PB", type:"breakfast", calories:420, protein:17, carbs:58, fat:14, tags:["vegetarian","dairy_free","vegan","gluten_free"],
     ingredients:[
       {name:"Rolled oats", qty:0.75, unit:"cup"},
       {name:"Mixed berries", qty:1, unit:"cup"},
@@ -35,7 +35,7 @@ const MEALS_DB = [
     image: "data/images/oats_berries_pb.jpg"
   },
 
-  {name:"Tofu Scramble Wrap", type:"breakfast", calories:440, protein:32, carbs:46, fat:14, tags:["vegan","vegetarian","dairy_free","halal","kosher","diabetic_friendly"],
+  {name:"Tofu Scramble Wrap", type:"breakfast", calories:440, protein:32, carbs:46, fat:14, tags:["vegan","vegetarian","dairy_free"],
     ingredients:[
       {name:"Firm tofu", qty:200, unit:"g"},
       {name:"Large flour tortilla", qty:1, unit:"pcs"},
@@ -68,7 +68,7 @@ const MEALS_DB = [
     image: "data/images/egg_avocado_toast.jpg"
   },
 
-  {name:"Chia Pudding", type:"snack", calories:220, protein:8, carbs:22, fat:12, tags:["vegan","vegetarian","gluten_free","dairy_free","halal","kosher","diabetic_friendly"],
+  {name:"Chia Pudding", type:"snack", calories:220, protein:8, carbs:22, fat:12, tags:["vegetarian","gluten_free","dairy_free","vegan_optional"],
     ingredients:[
       {name:"Chia seeds", qty:3, unit:"tbsp"},
       {name:"Unsweetened almond milk", qty:1, unit:"cup"},
@@ -478,7 +478,7 @@ const MEALS_DB = [
     tips: "Add grilled chicken or chickpeas to increase protein.",
     image: "data/images/greek_salad_feta.jpg"
   },
-  {name:"Pork Fried Rice", type:"dinner", calories:700, protein:36, carbs:82, fat:22, tags:[],
+  {name:"Pork Fried Rice", type:"dinner", calories:700, protein:36, carbs:82, fat:22, tags:["dairy_free"],
     ingredients:[
       {name:"Cooked rice (day-old)", qty:1.5, unit:"cups"},
       {name:"Lean pork (diced)", qty:150, unit:"g"},
@@ -519,8 +519,7 @@ const MEALS_DB = [
   },
 
   /* Extra high-calorie / energy-dense meals to improve target matching */
-  ,
-  {name:"Double Cheeseburger & Fries (large)", type:"dinner", calories:1180, protein:64, carbs:78, fat:68, tags:[],
+  {name:"Double Cheeseburger & Fries (large)", type:"dinner", calories:1180, protein:64, carbs:78, fat:68, tags:["high_calorie"],
     ingredients:[
       {name:"Beef patties (2)", qty:300, unit:"g"},
       {name:"Cheddar cheese", qty:60, unit:"g"},
@@ -535,7 +534,7 @@ const MEALS_DB = [
     image: "data/images/double_cheeseburger_fries.jpg"
   },
 
-  {name:"Loaded Nachos (shareable)", type:"dinner", calories:1120, protein:48, carbs:96, fat:56, tags:[],
+  {name:"Loaded Nachos (shareable)", type:"dinner", calories:1120, protein:48, carbs:96, fat:56, tags:["high_calorie","gluten_free"],
     ingredients:[
       {name:"Tortilla chips", qty:200, unit:"g"},
       {name:"Ground beef or pulled chicken", qty:200, unit:"g"},
@@ -550,7 +549,7 @@ const MEALS_DB = [
     image: "data/images/loaded_nachos.jpg"
   },
 
-  {name:"BBQ Pulled Pork Plate (large)", type:"dinner", calories:1050, protein:72, carbs:80, fat:48, tags:[],
+  {name:"BBQ Pulled Pork Plate", type:"dinner", calories:1050, protein:72, carbs:80, fat:48, tags:["high_calorie"],
     ingredients:[
       {name:"Pulled pork (slow-cooked)", qty:300, unit:"g"},
       {name:"Mac & cheese", qty:1, unit:"cup"},
@@ -578,7 +577,7 @@ const MEALS_DB = [
     image: "data/images/fettuccine_alfredo_xl.jpg"
   },
 
-  {name:"Mass Gainer Smoothie (XL)", type:"snack", calories:900, protein:60, carbs:90, fat:30, tags:[],
+  {name:"Mass Gainer Smoothie (XL)", type:"snack", calories:900, protein:60, carbs:90, fat:30, tags:["high_calorie","vegetarian"],
     ingredients:[
       {name:"Whole milk", qty:600, unit:"ml"},
       {name:"Peanut butter", qty:4, unit:"tbsp"},
@@ -594,7 +593,7 @@ const MEALS_DB = [
     image: "data/images/mass_gainer_smoothie_xl.jpg"
   },
 
-  {name:"Steak & Mac 'n' Cheese (XL)", type:"dinner", calories:1300, protein:88, carbs:95, fat:60, tags:[],
+  {name:"Steak & Mac 'n' Cheese (XL)", type:"dinner", calories:1300, protein:88, carbs:95, fat:60, tags:["high_calorie", "gluten_free"],
     ingredients:[
       {name:"Ribeye or sirloin steak", qty:300, unit:"g"},
       {name:"Mac & cheese (rich)", qty:1.5, unit:"cups"},
@@ -608,7 +607,7 @@ const MEALS_DB = [
     image: "data/images/steak_mac_cheese_xl.jpg"
   },
 
-  {name:"Granola + Nut Butter Bowl (large)", type:"breakfast", calories:880, protein:28, carbs:110, fat:30, tags:["vegetarian"],
+  {name:"Granola + Nut Butter Bowl (large)", type:"breakfast", calories:880, protein:28, carbs:110, fat:30, tags:["vegetarian", "vegan_optional", "gluten_free"],
     ingredients:[
       {name:"Granola", qty:1, unit:"cup"},
       {name:"Greek yogurt or milk", qty:1, unit:"cup"},
@@ -620,6 +619,206 @@ const MEALS_DB = [
       "Add banana or dried fruit to increase calories and carbs."
     ],
     image: "data/images/granola_nutbutter_bowl_large.jpg"
+  },
+
+  // === HIGH CALORIE MEALS FOR BULKING ===
+  
+  {name:"Mega Protein Pancake Stack", type:"breakfast", calories:1450, protein:68, carbs:145, fat:72, tags:["high_calorie"],
+    ingredients:[
+      {name:"Protein powder", qty:2, unit:"scoops"},
+      {name:"Rolled oats", qty:1.5, unit:"cups"},
+      {name:"Whole milk", qty:1.5, unit:"cups"},
+      {name:"Eggs", qty:3, unit:"whole"},
+      {name:"Banana", qty:2, unit:"large"},
+      {name:"Peanut butter", qty:4, unit:"tbsp"},
+      {name:"Maple syrup", qty:3, unit:"tbsp"},
+      {name:"Greek yogurt", qty:0.5, unit:"cup"}
+    ],
+    instructions:[
+      "Blend oats, protein powder, milk, eggs, and 1 banana to make batter.",
+      "Cook large pancakes in coconut oil. Stack with sliced banana, peanut butter, and syrup.",
+      "Serve with Greek yogurt on the side."
+    ],
+    image: "data/images/mega-protein-pancake.jpg"
+  },
+
+  {name:"Ultimate Mass Gainer Smoothie", type:"snack", calories:1380, protein:65, carbs:168, fat:48, tags:["high_calorie","liquid","vegetarian","gluten_free"],
+    ingredients:[
+      {name:"Protein powder", qty:2, unit:"scoops"},
+      {name:"Whole milk", qty:2, unit:"cups"},
+      {name:"Frozen banana", qty:2, unit:"large"},
+      {name:"Peanut butter", qty:4, unit:"tbsp"},
+      {name:"Rolled oats", qty:1, unit:"cup"},
+      {name:"Greek yogurt", qty:1, unit:"cup"},
+      {name:"Honey", qty:2, unit:"tbsp"},
+      {name:"Heavy cream", qty:0.25, unit:"cup"}
+    ],
+    instructions:[
+      "Blend all ingredients until smooth and creamy.",
+      "Add ice if desired consistency is thinner.",
+      "Drink immediately or store in fridge for up to 24 hours."
+    ],
+    image: "data/images/mass_gainer_smoothie1_xl.jpg"
+  },
+
+  {name:"Loaded Chicken Alfredo Pasta", type:"dinner", calories:1650, protein:84, carbs:142, fat:78, tags:["high_calorie"],
+    ingredients:[
+      {name:"Fettuccine pasta", qty:400, unit:"g"},
+      {name:"Chicken breast", qty:300, unit:"g"},
+      {name:"Heavy cream", qty:1.5, unit:"cups"},
+      {name:"Parmesan cheese", qty:100, unit:"g"},
+      {name:"Mozzarella cheese", qty:80, unit:"g"},
+      {name:"Butter", qty:4, unit:"tbsp"},
+      {name:"Garlic", qty:4, unit:"cloves"},
+      {name:"Broccoli", qty:2, unit:"cups"}
+    ],
+    instructions:[
+      "Cook pasta according to package directions. Season and cook chicken until done.",
+      "Make rich Alfredo sauce with cream, butter, garlic, and both cheeses.",
+      "Toss pasta with sauce, sliced chicken, and steamed broccoli.",
+      "Serve with extra parmesan and garlic bread if desired."
+    ],
+    image: "data/images/fettuccine_alfredo1_xl.jpg"
+  },
+
+  {name:"Monster Breakfast Burrito", type:"breakfast", calories:1520, protein:72, carbs:95, fat:92, tags:["high_calorie","vegetarian"],
+    ingredients:[
+      {name:"Large flour tortillas", qty:2, unit:"pieces"},
+      {name:"Scrambled eggs", qty:6, unit:"whole"},
+      {name:"Breakfast sausage", qty:200, unit:"g"},
+      {name:"Hash browns", qty:2, unit:"cups"},
+      {name:"Cheddar cheese", qty:150, unit:"g"},
+      {name:"Avocado", qty:1, unit:"whole"},
+      {name:"Sour cream", qty:4, unit:"tbsp"},
+      {name:"Salsa", qty:4, unit:"tbsp"}
+    ],
+    instructions:[
+      "Cook sausage and hash browns until crispy. Scramble eggs with butter.",
+      "Warm tortillas, fill with eggs, sausage, hash browns, and cheese.",
+      "Add avocado, sour cream, and salsa. Roll tightly.",
+      "Can be wrapped in foil and eaten on-the-go."
+    ],
+    image: "data/images/loaded_burrito_bowl1.jpg"
+  },
+
+  {name:"Peanut Butter Power Bowl", type:"snack", calories:980, protein:42, carbs:78, fat:58, tags:["high_calorie"],
+    ingredients:[
+      {name:"Greek yogurt", qty:1.5, unit:"cups"},
+      {name:"Granola", qty:1, unit:"cup"},
+      {name:"Peanut butter", qty:4, unit:"tbsp"},
+      {name:"Banana", qty:2, unit:"medium"},
+      {name:"Honey", qty:2, unit:"tbsp"},
+      {name:"Mixed nuts", qty:0.5, unit:"cup"},
+      {name:"Dark chocolate chips", qty:3, unit:"tbsp"}
+    ],
+    instructions:[
+      "Layer Greek yogurt in a large bowl.",
+      "Top with sliced bananas, granola, and nuts.",
+      "Drizzle with peanut butter and honey.",
+      "Sprinkle chocolate chips on top."
+    ],
+    image: "data/images/peanut_butter_banana_smoothie1.jpg"
+  },
+
+  {name:"Loaded Beef and Rice Bowl", type:"dinner", calories:1590, protein:78, carbs:148, fat:68, tags:["high_calorie","gluten_free"],
+    ingredients:[
+      {name:"Ground beef (80/20)", qty:300, unit:"g"},
+      {name:"Jasmine rice", qty:1.5, unit:"cups dry"},
+      {name:"Black beans", qty:1, unit:"cup"},
+      {name:"Cheddar cheese", qty:100, unit:"g"},
+      {name:"Avocado", qty:1, unit:"whole"},
+      {name:"Sour cream", qty:4, unit:"tbsp"},
+      {name:"Olive oil", qty:2, unit:"tbsp"},
+      {name:"Corn", qty:0.75, unit:"cup"}
+    ],
+    instructions:[
+      "Cook rice with extra oil for richness. Brown seasoned ground beef.",
+      "Layer rice, beef, beans, and corn in a large bowl.",
+      "Top with cheese, diced avocado, and sour cream.",
+      "Season with cumin, paprika, and garlic powder."
+    ],
+    image: "data/images/loaded_burrito_bowl2.jpg"
+  },
+
+  {name:"Triple Decker Club Sandwich", type:"lunch", calories:1420, protein:65, carbs:88, fat:86, tags:["high_calorie"],
+    ingredients:[
+      {name:"Thick bread slices", qty:3, unit:"pieces"},
+      {name:"Turkey breast", qty:200, unit:"g"},
+      {name:"Ham", qty:150, unit:"g"},
+      {name:"Bacon", qty:6, unit:"strips"},
+      {name:"Cheddar cheese", qty:80, unit:"g"},
+      {name:"Swiss cheese", qty:60, unit:"g"},
+      {name:"Avocado", qty:1, unit:"whole"},
+      {name:"Mayonnaise", qty:3, unit:"tbsp"},
+      {name:"Butter", qty:2, unit:"tbsp"}
+    ],
+    instructions:[
+      "Toast bread and spread with butter and mayo.",
+      "Layer turkey, ham, crispy bacon, and both cheeses.",
+      "Add sliced avocado, lettuce, and tomato.",
+      "Stack high and secure with toothpicks. Serve with chips."
+    ],
+    image: "data/images/double_cheeseburger_fries1.jpg"
+  },
+
+  {name:"Chocolate Chip Cookie Protein Shake", type:"snack", calories:890, protein:52, carbs:98, fat:28, tags:["high_calorie","liquid","vegetarian","gluten_free"],
+    ingredients:[
+      {name:"Protein powder (vanilla)", qty:2, unit:"scoops"},
+      {name:"Whole milk", qty:2, unit:"cups"},
+      {name:"Frozen banana", qty:1, unit:"large"},
+      {name:"Peanut butter", qty:2, unit:"tbsp"},
+      {name:"Oats", qty:0.5, unit:"cup"},
+      {name:"Mini chocolate chips", qty:3, unit:"tbsp"},
+      {name:"Vanilla extract", qty:1, unit:"tsp"},
+      {name:"Ice cream (vanilla)", qty:0.5, unit:"cup"}
+    ],
+    instructions:[
+      "Blend milk, protein powder, banana, peanut butter, and oats.",
+      "Add vanilla and ice cream for richness.",
+      "Pulse in chocolate chips at the end.",
+      "Serve immediately in a large glass."
+    ],
+    image: "data/images/protein_shake_plant1.jpg"
+  },
+
+  {name:"Meat Lovers Supreme Pizza Bowl", type:"dinner", calories:1680, protein:92, carbs:85, fat:98, tags:["high_calorie"],
+    ingredients:[
+      {name:"Pizza dough (baked)", qty:200, unit:"g"},
+      {name:"Ground Italian sausage", qty:200, unit:"g"},
+      {name:"Pepperoni", qty:100, unit:"g"},
+      {name:"Mozzarella cheese", qty:200, unit:"g"},
+      {name:"Marinara sauce", qty:0.75, unit:"cup"},
+      {name:"Parmesan cheese", qty:50, unit:"g"},
+      {name:"Olive oil", qty:3, unit:"tbsp"},
+      {name:"Bell peppers", qty:1, unit:"cup"}
+    ],
+    instructions:[
+      "Bake pizza dough into bowl shape or use as base.",
+      "Cook sausage and layer with pepperoni in the bowl.",
+      "Add marinara sauce and top with both cheeses.",
+      "Bake until melted and bubbling. Drizzle with olive oil."
+    ],
+    image: "data/images/loaded_nachos1.jpg"
+  },
+
+  {name:"Banana Nut Protein French Toast", type:"breakfast", calories:1340, protein:58, carbs:125, fat:68, tags:["high_calorie","vegetarian"],
+    ingredients:[
+      {name:"Thick bread slices", qty:4, unit:"pieces"},
+      {name:"Eggs", qty:4, unit:"whole"},
+      {name:"Protein powder", qty:1, unit:"scoop"},
+      {name:"Whole milk", qty:0.75, unit:"cup"},
+      {name:"Banana", qty:2, unit:"medium"},
+      {name:"Chopped walnuts", qty:0.5, unit:"cup"},
+      {name:"Butter", qty:4, unit:"tbsp"},
+      {name:"Maple syrup", qty:4, unit:"tbsp"}
+    ],
+    instructions:[
+      "Whisk eggs, milk, and protein powder for batter.",
+      "Soak bread slices and cook in buttered pan until golden.",
+      "Stack with sliced bananas, walnuts, and extra butter.",
+      "Drizzle generously with maple syrup."
+    ],
+    image: "data/images/protein_pancakes1.jpg"
   }
 
 ];

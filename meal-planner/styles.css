@@ -12,13 +12,44 @@ html,body{height:100%}
 body{
   margin:0;
   font-family:Inter,system-ui,-apple-system,Segoe UI,Roboto,Helvetica,Arial,sans-serif;
-  background:linear-gradient(180deg,#071022,#0b1220 30%,#0b1220);
+  background:linear-gradient(135deg, #0a0f1c 0%, #162038 25%, #0f1a2e 50%, #1a2548 75%, #0d1626 100%),
+             radial-gradient(circle at 20% 20%, rgba(124, 146, 255, 0.15) 0%, transparent 50%),
+             radial-gradient(circle at 80% 80%, rgba(48, 230, 166, 0.1) 0%, transparent 50%),
+             radial-gradient(circle at 60% 40%, rgba(124, 146, 255, 0.08) 0%, transparent 60%);
+  background-size: 100% 100%, 800px 800px, 600px 600px, 1000px 1000px;
+  background-attachment: fixed;
   color:var(--text);
+  min-height: 100vh;
 }
-.container{max-width:1100px;margin:0 auto;padding:24px}
-header{text-align:center;padding-top:24px}
-h1{margin:0 0 6px 0;font-size:28px;font-weight:700}
-.subtitle{margin:0;color:var(--muted)}
+.container{
+  max-width:1100px;
+  margin:0 auto;
+  padding:24px;
+  position: relative;
+  z-index: 1;
+}
+header{
+  text-align:center;
+  padding-top:24px;
+  position: relative;
+}
+
+h1{
+  margin:0 0 6px 0;
+  font-size:28px;
+  font-weight:700;
+  background: linear-gradient(135deg, var(--accent), var(--accent-2));
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  text-shadow: 0 2px 10px rgba(124, 146, 255, 0.3);
+}
+
+.subtitle{
+  margin:0;
+  color:var(--muted);
+  text-shadow: 0 1px 3px rgba(0,0,0,0.5);
+}
 .grid{
   display:grid;
   grid-template-columns:1fr;
@@ -29,11 +60,27 @@ h1{margin:0 0 6px 0;font-size:28px;font-weight:700}
   #workout-card{grid-column:1/3}
 }
 .card{
-  background:linear-gradient(180deg,#0f1830,#0c1527);
+  background:linear-gradient(145deg, rgba(15, 24, 48, 0.95), rgba(12, 21, 39, 0.95));
   border:1px solid var(--border);
-  border-radius:16px;
-  padding:20px;
-  box-shadow:0 10px 30px rgba(0,0,0,.25), inset 0 1px 0 rgba(255,255,255,.04);
+  border-radius:20px;
+  padding:24px;
+  box-shadow:0 15px 40px rgba(0,0,0,.3), 
+             0 5px 15px rgba(0,0,0,.2),
+             inset 0 1px 0 rgba(255,255,255,.08),
+             inset 0 -1px 0 rgba(0,0,0,.2);
+  backdrop-filter: blur(10px);
+  position: relative;
+  overflow: hidden;
+}
+
+.card::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 1px;
+  background: linear-gradient(90deg, transparent, rgba(124, 146, 255, 0.5), transparent);
 }
 .card h2{margin-top:0;font-size:20px}
 .row{display:flex;gap:12px;flex-wrap:wrap;align-items:center;margin:10px 0}
@@ -44,17 +91,68 @@ input,select,button{
   background:#0a1324;color:var(--text);
   padding:10px 12px;font-size:14px;outline:none;
 }
-button{cursor:pointer}
-button.primary{background:linear-gradient(180deg,var(--accent),#5a73ff);border:none;color:white;font-weight:600}
-button.secondary{background:#0a1428;border:1px solid #2a3960}
-button.ghost{background:transparent;border:1px dashed #40507a;color:var(--muted)}
+button{
+  cursor:pointer;
+  transition: all 0.2s ease;
+  position: relative;
+  overflow: hidden;
+}
+
+button.primary{
+  background:linear-gradient(135deg,var(--accent),#5a73ff);
+  border:none;
+  color:white;
+  font-weight:600;
+  box-shadow: 0 4px 15px rgba(124, 146, 255, 0.4);
+}
+
+button.primary:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 6px 20px rgba(124, 146, 255, 0.6);
+}
+
+button.secondary{
+  background:linear-gradient(135deg, #0a1428, #0f1a32);
+  border:1px solid #2a3960;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.3);
+}
+
+button.secondary:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 4px 12px rgba(0,0,0,0.4);
+  border-color: #3a4970;
+}
+
+button.ghost{
+  background:transparent;
+  border:1px dashed #40507a;
+  color:var(--muted);
+}
+
+button.ghost:hover {
+  border-color: var(--accent);
+  color: var(--accent);
+}
 .chips{display:flex;flex-wrap:wrap;gap:12px}
 .chips label{border:1px solid var(--border);padding:8px 10px;border-radius:999px;cursor:pointer;background:#0a1324}
 .summary{border-top:1px dashed var(--border);border-bottom:1px dashed var(--border);padding:10px 0;margin:10px 0;color:var(--muted)}
 #meal-plan,#workout-plan{display:grid;grid-template-columns:1fr;gap:12px}
 @media(min-width:720px){#meal-plan,#workout-plan{grid-template-columns:1fr 1fr}}
 .plan-card{
-  border:1px solid var(--border);border-radius:14px;padding:12px;background:#0a1320
+  border:1px solid var(--border);
+  border-radius:16px;
+  padding:16px;
+  background:linear-gradient(135deg, rgba(10, 19, 32, 0.9), rgba(15, 25, 42, 0.9));
+  backdrop-filter: blur(8px);
+  box-shadow:0 8px 25px rgba(0,0,0,.2), 
+             inset 0 1px 0 rgba(255,255,255,.05);
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.plan-card:hover {
+  transform: translateY(-2px);
+  box-shadow:0 12px 35px rgba(0,0,0,.3), 
+             inset 0 1px 0 rgba(255,255,255,.08);
 }
 .plan-card h3{margin:4px 0 6px;font-size:16px}
 .plan-card p{margin:4px 0;color:var(--muted);font-size:13px;line-height:1.4}

@@ -277,7 +277,7 @@ function renderNutrition(targets, plan){
     const accuracy = d.totals.accuracy || Math.round((1 - Math.abs(d.totals.cal - targets.calories) / Math.max(1, targets.calories)) * 100);
     const accuracyColor = accuracy >= 90 ? '#10b981' : accuracy >= 80 ? '#f59e0b' : '#ef4444';
     
-    const list = d.items.map(m => `<li class="meal-item clickable" onclick="openRecipeModal('${m.name.replace(/'/g, "\\'").replace(/"/g, '\\"')}')"><span class="meal-name">${m.name}</span><span class="meal-nutrition"> — ${m.calories} kcal · P${m.protein} C${m.carbs} F${m.fat}</span></li>`).join("");
+    const list = d.items.map(m => `<li class="meal-item clickable" data-meal-name="${m.name.replace(/"/g, '&quot;')}"><span class="meal-name">${m.name}</span><span class="meal-nutrition"> — ${m.calories} kcal · P${m.protein} C${m.carbs} F${m.fat}</span></li>`).join("");
     div.innerHTML = `
       <h3>Day ${i+1} <span style="color: ${accuracyColor}; font-size: 12px;">(${accuracy}% target match)</span></h3>
       <p><b>Daily total:</b> ${d.totals.cal} kcal · P${d.totals.p} C${d.totals.c} F${d.totals.f}</p>
@@ -535,14 +535,14 @@ function openRecipeModal(mealName) {
   const cleanedName = baseMealName(mealName);
   console.log("Base meal name after cleanup:", cleanedName);
   
-  let meal = MEALS_DB.find(m => baseMealName(m.name) === cleanedName);
+  let meal = MEALS_DB.find(m => m && m.name && baseMealName(m.name) === cleanedName);
   if (!meal) {
-    // Try exact match fallback
-    meal = MEALS_DB.find(m => m.name === mealName) || MEALS_DB.find(m => m.name.toLowerCase() === cleanedName.toLowerCase());
+    // Try exact match fallback - with safety check
+    meal = MEALS_DB.find(m => m && m.name && m.name === mealName) || MEALS_DB.find(m => m && m.name && m.name.toLowerCase() === cleanedName.toLowerCase());
   }
 
   if (!meal) {
-    console.log("Available meal names:", MEALS_DB.map(m => m.name));
+    console.log("Available meal names:", MEALS_DB.map(m => m && m.name ? m.name : "INVALID_MEAL"));
     console.log("Searched for:", mealName, "and", cleanedName);
     showNotification("❌ Recipe not found: " + mealName, "error");
     return;
@@ -1096,6 +1096,14 @@ document.addEventListener("DOMContentLoaded", ()=>{
   }); }
   const printBtn = document.getElementById("print-plans");
   if(printBtn){ printBtn.addEventListener("click", ()=>window.print()); }
+  
+  // Event delegation for meal items
+  document.addEventListener("click", (e) => {
+    const mealItem = e.target.closest(".meal-item");
+    if (mealItem && mealItem.dataset.mealName) {
+      openRecipeModal(mealItem.dataset.mealName);
+    }
+  });
   
   // Units toggle handler
   const unitsSelect = $("#units-select");
